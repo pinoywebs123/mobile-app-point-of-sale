@@ -1,17 +1,51 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary" (click)="clickCart()">
+    <ion-buttons>
+      <ion-icon name="ios-cart" style="font-size:40px" color="danger" ></ion-icon>
+    </ion-buttons>
+    <ion-buttons end style="color:aliceblue">
+      {{order}}
+    </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <h2 text-center>Point of Sale</h2>
+  <div padding>
+  <ion-segment [(ngModel)]="pet">
+    <ion-segment-button value="foods">
+      Foods
+    </ion-segment-button>
+    <ion-segment-button value="drinks">
+      Drinks
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="pet">
+  <ion-list *ngSwitchCase="'foods'">
+
+    <ion-item *ngFor="let food of foods" (click)="clickOrder(food)">
+      <ion-thumbnail item-start>
+        <img src="img/food.png">
+      </ion-thumbnail>
+      <h2>{{food.name}}</h2>
+      <p item-end><strong>P{{food.price}}</strong></p>
+    </ion-item>
+
+    
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'drinks'">
+    <ion-item *ngFor="let drink of drinks" (click)="clickOrder(drink)">
+      <ion-thumbnail item-start>
+        <img src="img/drink.png">
+      </ion-thumbnail>
+      <h2>{{drink.name}}</h2>
+      <p item-end><strong>P{{drink.price}}</strong></p>
+    </ion-item>
+
+  </ion-list>
+</div>
 </ion-content>
